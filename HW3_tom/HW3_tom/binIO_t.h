@@ -37,6 +37,7 @@ public:
 
 private:
 	template <typename T> binIO_t & binaryWrite(const T  &t) throw(virtIO_t::IOErr_t) {
+		canDoAction(actionType::write_action);
 		if (fwrite(&t, sizeof(t), 1, m_file) != 1){
 			setStatus(writeErr_e);
 			//m_status = writeErr_e;
@@ -46,6 +47,7 @@ private:
 	}
 
 	template <typename T> binIO_t & binaryRead(T &t) throw(virtIO_t::IOErr_t) {
+		canDoAction(actionType::read_action);
 		if (getPosition() >= getFileLength()){
 			setStatus(read_after_eof_e);
 			//m_status = read_after_eof_e;
