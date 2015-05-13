@@ -25,6 +25,11 @@ enum statusCode {
 	general_error_e
 };
 
+enum actionType {
+	read_action,
+	write_action
+};
+
 class virtIO_t {
 
 public:
@@ -99,6 +104,10 @@ public:
 	virtual virtIO_t & operator>>(double& c) = 0;
 
 protected: 
+	bool canDoRead() const;
+	bool canDoWrite() const;
+	void canDoAction(actionType actionType) const;
+
 	string m_path;
 	string m_accessMode;
 	FILE *m_file;

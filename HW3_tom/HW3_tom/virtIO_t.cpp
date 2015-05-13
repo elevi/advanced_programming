@@ -178,3 +178,31 @@ void virtIO_t::initPosition()
 		setStatus(general_error_e);
 }
 
+bool virtIO_t::canDoRead() const{
+	if (!m_accessMode.compare("w") || !m_accessMode.compare("a")){
+		return false;
+	}
+	return true;
+}
+
+bool virtIO_t::canDoWrite() const{
+	return (m_accessMode.compare("r") == 0) ? false : true;
+}
+
+void virtIO_t::canDoAction(actionType actionType) const{
+	switch (actionType){
+		case actionType::read_action:
+			if (!canDoRead()){
+				throw IOErr_t("bad_access_e - file doesn't has read permission");
+			}
+			break;
+		case actionType::write_action:
+			if (!canDoWrite()){
+				throw IOErr_t("bad_access_e - file doesn't has write permission");
+			}
+			break;
+		default:
+			throw IOErr_t("Unknown actionType");
+			break;
+	}
+}
