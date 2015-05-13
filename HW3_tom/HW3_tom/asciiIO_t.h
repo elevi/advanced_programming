@@ -37,6 +37,7 @@ public:
 
 private:
 	template <typename T> asciiIO_t writeAscii(const char * writeFormat, T& t){
+		canDoAction(actionType::write_action);
 		if (fprintf(m_file, writeFormat, t) <= 0){
 			setStatus(writeErr_e);
 			//m_status = writeErr_e;
@@ -46,6 +47,7 @@ private:
 	}
 
 	template <typename T> asciiIO_t readAscii(const char * readFormat, T* t){
+		canDoAction(actionType::read_action);
 		if (!feof(m_file) && (getPosition() < getFileLength())){
 			if (fscanf(m_file, readFormat, t) <= 0){
 				setStatus(readErr_e);

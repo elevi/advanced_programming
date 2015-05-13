@@ -123,9 +123,14 @@ void virtIO_t::operator,(int len){
 	int res = 0;
 
 	if (m_buffer){
-		if (lastIOCommand==1) //write
+		if (lastIOCommand == 1) //write
+		{
+
+			canDoAction(actionType::write_action);
 			res = fwrite(m_buffer, 1, len, m_file);
+		}
 		else{ //read
+			canDoAction(actionType::read_action);
 			if (getPosition() + len  > getFileLength()){
 				//m_status = read_after_eof_e;
 				setStatus(read_after_eof_e);
@@ -144,6 +149,7 @@ void virtIO_t::operator,(int len){
 
 void virtIO_t::read(void* buf, unsigned int size, unsigned int count)
 {
+	canDoAction(actionType::read_action);
 	if (getPosition() >= getFileLength())
 	{
 		//m_status = read_after_eof_e;
@@ -163,6 +169,7 @@ void virtIO_t::read(void* buf, unsigned int size, unsigned int count)
 
 void virtIO_t::write(const void* buf, unsigned int size, unsigned int count)
 {
+	canDoAction(actionType::write_action);
 	if (!(fwrite(buf, size, count, m_file) > 0))
 	{
 		setStatus(writeErr_e);
