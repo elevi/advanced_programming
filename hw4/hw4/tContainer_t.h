@@ -12,6 +12,28 @@ class tContainer_t
 		return container.empty();
 	}
 
+	int elementAmount() const {
+		return container.size();
+		//const tContainer_t<int, vector>& t1;
+		//const tContainer_t<double, vector>& t2;
+		//const tContainer_t<int, list>& t3;
+		//const tContainer_t<double, list>& t4;
+		//
+		////vector
+		//if (typeid(*this) == typeid(t1) || typeid(*this) == typeid(t2)){
+		//	return conditional_t.capa
+		//}
+		////list
+		//else if (typeid(*this) == typeid(t3) || typeid(*this) == typeid(t4)){
+
+		//}
+
+	}
+
+	void insert(const T& t){
+		container.push_back(t);
+	}
+
 	~tContainer_t(){
 		;
 	}
@@ -19,7 +41,7 @@ class tContainer_t
 	private:
 	tContainer_t(const tContainer_t& obj) { ; }
 	
-	Container<T*, std::allocator<T*>> container;
+	Container<T, std::allocator<T*>> container;
 	int elementsCounter;
 };
 

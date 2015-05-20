@@ -63,8 +63,17 @@ int runner(tContainer_t<T, Container>& container){
 
 		switch (command){
 			case INSERT:
-
-				break;
+			{
+				T elemetToInsert;
+				cout << "please enter new element value" << endl;
+				cin >> elemetToInsert;
+				int currentSize = container.elementAmount();
+				container.insert(elemetToInsert);
+				if (currentSize + 1 != container.elementAmount()) {
+					cout << "[ERROR] failed to insert new element" << endl;
+				}
+			}
+			break;
 			case REMOVE:
 
 				break;
@@ -75,7 +84,7 @@ int runner(tContainer_t<T, Container>& container){
 
 				break;
 			case COUNT:
-
+				cout << "container elements count is: " << container.elementAmount() << endl;
 				break;
 			case PRINT:
 
@@ -147,9 +156,9 @@ int main()
 	}
 	else {
 		cout << "[ERROR] failed to initialize container" << endl;
-		return -1; 
+		return -1;
 	}
-	
+
 
 }
 
