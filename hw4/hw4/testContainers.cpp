@@ -4,6 +4,7 @@
 #include <list>
 #include <vector>
 #include "tContainer_t.h"
+#include "t_Exceptions.h"
 
 using namespace std;
 typedef enum
@@ -17,6 +18,7 @@ typedef enum
 	APPENND,
 	PREPENR,
 	IS_EMPTY,
+	GET_FIRST_ELEMENT,
 	EXIT
 } Options;
 //
@@ -31,6 +33,7 @@ const string optionsName[] = { "Insert",
 "Append",
 "Prepend",
 "is Empty?",
+"Get first element",
 "exit" };
 
 ////-------------------------------------------------------------------
@@ -98,6 +101,18 @@ int runner(tContainer_t<T, Container>& container){
 			case IS_EMPTY:
 				cout << "check is empty result:" << container.isEmpty() << endl;
 				break;
+			case GET_FIRST_ELEMENT:
+			{
+				try{
+					T firstElement = container.getFirstElement();
+					cout << "container first element is " << firstElement << endl;
+				}
+				catch (tEmptyException& ex){
+					cout << "[ERROR] details: " << ex.what() << endl;
+					break;
+				}
+			}
+			break;
 			case EXIT:
 				cont = false;
 				break;

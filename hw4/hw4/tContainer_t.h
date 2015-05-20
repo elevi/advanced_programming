@@ -1,4 +1,5 @@
 
+#include "t_Exceptions.h"
 template<typename T, template <typename, typename> class Container>
 class tContainer_t
 {
@@ -32,6 +33,15 @@ class tContainer_t
 
 	void insert(const T& t){
 		container.push_back(t);
+	}
+
+	T getFirstElement() const {
+		typename Container<T, std::allocator<T*>>::const_iterator itr = container.begin();
+		if (itr != container.end()){
+			T firstElement = *itr;
+			return firstElement;
+		}
+		throw tEmptyException();
 	}
 
 	~tContainer_t(){

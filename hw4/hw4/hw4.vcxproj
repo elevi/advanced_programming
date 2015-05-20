@@ -84,6 +84,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="tContainer_t.h" />
+    <ClInclude Include="t_Exceptions.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />
