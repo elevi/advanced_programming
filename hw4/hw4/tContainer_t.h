@@ -8,9 +8,9 @@ class tContainer_t
 	}
 
 	
-	//bool isEmpty() const {
-	//	return container.isEmpty();
-	//}
+	bool isEmpty() const {
+		return container.empty();
+	}
 
 	~tContainer_t(){
 		;

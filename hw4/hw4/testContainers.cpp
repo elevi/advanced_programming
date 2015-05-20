@@ -87,7 +87,7 @@ int runner(tContainer_t<T, Container>& container){
 
 				break;
 			case IS_EMPTY:
-				//cout << "check is empty result:" << container.isEmpty() << endl;
+				cout << "check is empty result:" << container.isEmpty() << endl;
 				break;
 			case EXIT:
 				cont = false;
