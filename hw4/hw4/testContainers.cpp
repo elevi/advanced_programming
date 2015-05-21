@@ -100,11 +100,14 @@ int runner(tContainer_t<T, Container>& container){
 			}
 				break;
 			case REMOVE_ALL:
+			case DELETE_ALL:
 			{
 				cout << "current container size: " << container.elementAmount() << endl;
-				cout << "start removing elements from container..." << endl;
+				string action = (command == REMOVE_ALL) ? "removing" : "deleting";
+				cout << "start " << action << " elements from container..." << endl;
 				int totoalRemoved = container.removeAllElementsFromContainer();
-				cout << "total elements removed from container: " << totoalRemoved << endl;
+				action = (command == REMOVE_ALL) ? "removed" : "deleted";
+				cout << "total elements " << action << " from container: " << totoalRemoved << endl;
 				cout << "current container size: " << container.elementAmount() << endl;
 			}
 				break;
@@ -120,8 +123,6 @@ int runner(tContainer_t<T, Container>& container){
 					cout << "[ERROR] failed to delete element value: " << elementForDeletion << " details: " << ex.what() << endl;
 				}
 			}
-				break;
-			case DELETE_ALL:
 				break;
 			case FIND:
 

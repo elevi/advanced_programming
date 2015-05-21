@@ -89,17 +89,12 @@ class tContainer_t
 	
 
 	int removeAllElementsFromContainer(){
-		Iter itr = container.begin();
-		int totalElementRemoved = 0;
-		while (itr != container.end()){
-			cout << "removing element with value: " << **itr << endl;
-			container.erase(itr);
-			++totalElementRemoved;
-			itr = container.begin();
-		}
-		return totalElementRemoved;
+		return eliminateAllElementsFromContainer(EliminateElement::Remove);
 	}
 
+	int deleteAllElementsFromContainer(){
+		return eliminateAllElementsFromContainer(EliminateElement::Delete);
+	}
 
 	~tContainer_t(){
 		;
@@ -139,6 +134,23 @@ class tContainer_t
 			return output;
 		}
 		throw tElementDoesNotExistException();
+	}
+
+	int eliminateAllElementsFromContainer(EliminateElement type){
+		Iter itr = container.begin();
+		int totalElementRemoved = 0;
+		while (itr != container.end()){
+			T* elementPtr = *itr;
+			cout << "removing element with value: " << *elementPtr << endl;
+			container.erase(itr);
+			if (type == EliminateElement::Delete){
+				delete elementPtr;
+				cout << "element deleted" << endl;
+			}
+			++totalElementRemoved;
+			itr = container.begin();
+		}
+		return totalElementRemoved;
 	}
 	
 	tContainer_t(const tContainer_t& obj) { ; }
