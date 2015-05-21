@@ -31,15 +31,15 @@ class tContainer_t
 
 	}
 
-	void insert(const T& t){
+	void insert(T * t){
 		container.push_back(t);
 	}
 
 	T getFirstElement() const {
-		typename Container<T, std::allocator<T*>>::const_iterator itr = container.begin();
+		typename Container<T*, std::allocator<T*>>::const_iterator itr = container.begin();
 		if (itr != container.end()){
-			T firstElement = *itr;
-			return firstElement;
+			T * firstElement = *itr;
+			return *firstElement;
 		}
 		throw tEmptyException();
 	}
@@ -51,7 +51,7 @@ class tContainer_t
 	private:
 	tContainer_t(const tContainer_t& obj) { ; }
 	
-	Container<T, std::allocator<T*>> container;
+	Container<T*, std::allocator<T*>> container;
 	int elementsCounter;
 };
 

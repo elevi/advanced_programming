@@ -67,9 +67,10 @@ int runner(tContainer_t<T, Container>& container){
 		switch (command){
 			case INSERT:
 			{
-				T elemetToInsert;
+				//TODO elevi verify no memory leak occurs
+				T * elemetToInsert = new T[1];
 				cout << "please enter new element value" << endl;
-				cin >> elemetToInsert;
+				cin >> *elemetToInsert;
 				int currentSize = container.elementAmount();
 				container.insert(elemetToInsert);
 				if (currentSize + 1 != container.elementAmount()) {
