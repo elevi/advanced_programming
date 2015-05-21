@@ -31,7 +31,10 @@ class tContainer_t
 
 	public:
 	tContainer_t(){}
-
+	
+	~tContainer_t(){
+		;
+	}
 	
 	bool isEmpty() const {
 		return container.empty();
@@ -39,20 +42,6 @@ class tContainer_t
 
 	int elementAmount() const {
 		return container.size();
-		//const tContainer_t<int, vector>& t1;
-		//const tContainer_t<double, vector>& t2;
-		//const tContainer_t<int, list>& t3;
-		//const tContainer_t<double, list>& t4;
-		//
-		////vector
-		//if (typeid(*this) == typeid(t1) || typeid(*this) == typeid(t2)){
-		//	return conditional_t.capa
-		//}
-		////list
-		//else if (typeid(*this) == typeid(t3) || typeid(*this) == typeid(t4)){
-
-		//}
-
 	}
 
 	void insert(T * t){
@@ -75,8 +64,6 @@ class tContainer_t
 		return 0;
 	}
 
-
-
 	T* removeElementFromContainer(const T& value){
 		return eliminateElementFromContainer(value, EliminateElement::Remove);
 	}
@@ -94,9 +81,31 @@ class tContainer_t
 		return eliminateAllElementsFromContainer(EliminateElement::Delete);
 	}
 
-	~tContainer_t(){
-		;
+	T* operator[](const int& index) const {
+		const tContainer_t<int, vector>& t1;
+		const tContainer_t<double, vector>& t2;
+		const tContainer_t<int, list>& t3;
+		const tContainer_t<double, list>& t4;
+		
+		////vector
+		if (typeid(*this) == typeid(t1) || typeid(*this) == typeid(t2)){
+			return container[index];
+		}
+		////list
+		else if (typeid(*this) == typeid(t3) || typeid(*this) == typeid(t4)){
+			Iter itr = container.begin();
+			T * output = 0;
+			while (index < 0 && itr != container.end()){
+				++itr;
+			}
+			if (itr != container.end()){
+				output = *itr;
+			}
+			return 0;
+		}
 	}
+
+
 
 	private:
 	

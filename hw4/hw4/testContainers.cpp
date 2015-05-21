@@ -17,8 +17,6 @@ typedef enum
 	FIND,
 	COUNT,
 	PRINT,
-	APPENND,
-	PREPENR,
 	IS_EMPTY,
 	GET_FIRST_ELEMENT,
 	GET_LAST_ELEMENT,
@@ -33,11 +31,9 @@ const string optionsName[] = { "Insert",
 "Remove All",
 "Delete",
 "Delete All",
-"Find",
+"Find (operator [])",
 "Count",
 "Print",
-"Append",
-"Prepend",
 "is Empty?",
 "Get first element",
 "Get last element",
@@ -125,18 +121,17 @@ int runner(tContainer_t<T, Container>& container){
 			}
 				break;
 			case FIND:
-
+			{
+				cout << "please insert index" << endl;
+				int index;
+				cin >> index;
+				cout << "element detalis - index: " << index << " value:" << *container[index] << endl;
+			}
 				break;
 			case COUNT:
 				cout << "container elements count is: " << container.elementAmount() << endl;
 				break;
 			case PRINT:
-
-				break;
-			case APPENND:
-
-				break;
-			case PREPENR:
 
 				break;
 			case IS_EMPTY:
