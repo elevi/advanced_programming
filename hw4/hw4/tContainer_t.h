@@ -30,9 +30,7 @@ class tContainer_t
 
 
 	public:
-	tContainer_t() :elementsCounter(0){
-		;
-	}
+	tContainer_t(){}
 
 	
 	bool isEmpty() const {
@@ -156,8 +154,5 @@ class tContainer_t
 	tContainer_t(const tContainer_t& obj) { ; }
 	
 	Container<T*, std::allocator<T*>> container;
-	int elementsCounter;
-
-
 };
 
