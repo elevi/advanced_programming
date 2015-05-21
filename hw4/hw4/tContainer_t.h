@@ -82,6 +82,18 @@ class tContainer_t
 		throw tElementDoesNotExistException();
 	}
 
+	int removeAllElementsFromContainer(){
+		Iter itr = container.begin();
+		int totalElementRemoved = 0;
+		while (itr != container.end()){
+			cout << "removing element with value: " << **itr << endl;
+			container.erase(itr);
+			++totalElementRemoved;
+			itr = container.begin();
+		}
+		return totalElementRemoved;
+	}
+
 
 	~tContainer_t(){
 		;
