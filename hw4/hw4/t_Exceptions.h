@@ -9,4 +9,12 @@ class tEmptyException {
 		return "container is empty";
 	}
 };
+
+class tElementDoesNotExistException {
+	public:
+	tElementDoesNotExistException(){ ; }
+	virtual const char* what() const throw(){
+		return "element does not exist";
+	}
+};
 #endif //T_EXCEPTIONS_H

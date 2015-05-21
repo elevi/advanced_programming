@@ -65,15 +65,23 @@ class tContainer_t
 	}
 	typedef typename Container<T*, std::allocator<T*>>::const_iterator Iter;
 	T * findElementByValue(const T& value) const{
-		
-		Iter result = container.begin();
-		Iter end = container.end();
-		result = find_if(result, end, is_Equal(value));
+		Iter result = iteratorAtElement(value);
 		if (result != container.end()){
 			return *result;
 		}
 		return 0;
 	}
+
+	T* removeElementFromContainer(const T& value){
+		Iter itr = iteratorAtElement(value);
+		if (itr != container.end()){
+			T* output = *itr;
+			container.erase(itr);
+			return output;
+		}
+		throw tElementDoesNotExistException();
+	}
+
 
 	~tContainer_t(){
 		;
@@ -92,6 +100,12 @@ class tContainer_t
 				return *element;
 			}
 		}
+	}
+
+	Iter iteratorAtElement(const T& value) const{
+		Iter result = container.begin();
+		Iter end = container.end();
+		return result = find_if(result, end, is_Equal(value));
 	}
 	
 	tContainer_t(const tContainer_t& obj) { ; }

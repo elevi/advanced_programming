@@ -83,7 +83,18 @@ int runner(tContainer_t<T, Container>& container){
 			}
 			break;
 			case REMOVE:
-
+			{
+				cout << "please insert elemnet value for removal" << endl;
+				T elementForRemoval;
+				cin >> elementForRemoval;
+				try{
+					T* removedElement = container.removeElementFromContainer(elementForRemoval);
+					cout << "removed element value " << *removedElement << endl;
+				}
+				catch (tElementDoesNotExistException& ex){
+					cout << "[ERROR] failed to removed element value: " << elementForRemoval << " details: " << ex.what() << endl;
+				}
+			}
 				break;
 			case REMOVE_ALL:
 
