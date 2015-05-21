@@ -1,6 +1,7 @@
 
 #include "t_Exceptions.h"
 #include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -31,11 +32,11 @@ class tContainer_t
 
 	public:
 	tContainer_t(){}
-	
+
 	~tContainer_t(){
 		;
 	}
-	
+
 	bool isEmpty() const {
 		return container.empty();
 	}
@@ -71,7 +72,7 @@ class tContainer_t
 	T* deleteElementFromContainer(const T& value){
 		return eliminateElementFromContainer(value, EliminateElement::Delete);
 	}
-	
+
 
 	int removeAllElementsFromContainer(){
 		return eliminateAllElementsFromContainer(EliminateElement::Remove);
@@ -81,35 +82,46 @@ class tContainer_t
 		return eliminateAllElementsFromContainer(EliminateElement::Delete);
 	}
 
+
 	T* operator[](const int& index) const {
-		const tContainer_t<int, vector>& t1;
-		const tContainer_t<double, vector>& t2;
-		const tContainer_t<int, list>& t3;
-		const tContainer_t<double, list>& t4;
-		
-		////vector
-		if (typeid(*this) == typeid(t1) || typeid(*this) == typeid(t2)){
-			return container[index];
+		//vector
+		if (typeid(container) == typeid(vector<T*>)){
+			vector<T*> * vecPtr = (vector<T*> *)&container;
+			if (elementAmount() - 1 < index){
+				return 0;
+			}
+			else{
+				return (*vecPtr)[index];
+			}
+
 		}
-		////list
-		else if (typeid(*this) == typeid(t3) || typeid(*this) == typeid(t4)){
+		//list
+		else {
 			Iter itr = container.begin();
 			T * output = 0;
-			while (index < 0 && itr != container.end()){
+			int index_t = index;
+			while (index_t > 0 && itr != container.end()){
 				++itr;
+				--index_t;
 			}
 			if (itr != container.end()){
 				output = *itr;
 			}
-			return 0;
+			return output;
 		}
 	}
 
 
 
 	private:
-	
-	
+
+	tContainer_t(const tContainer_t& obj) { ; }
+
+	tContainer_t& operator=(tContainer_t& obj){
+		*this = obj;
+	}
+
+
 	T getElement(Position pos) const{
 		if (isEmpty()){
 			throw tEmptyException();
@@ -159,9 +171,7 @@ class tContainer_t
 		}
 		return totalElementRemoved;
 	}
-	
-	tContainer_t(const tContainer_t& obj) { ; }
-	
+
 	Container<T*, std::allocator<T*>> container;
 };
 

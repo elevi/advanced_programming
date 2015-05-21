@@ -125,14 +125,29 @@ int runner(tContainer_t<T, Container>& container){
 				cout << "please insert index" << endl;
 				int index;
 				cin >> index;
-				cout << "element detalis - index: " << index << " value:" << *container[index] << endl;
+				T * elemnt = container[index];
+				if (elemnt != 0){
+					cout << "element detalis - index: " << index << " value:" << *elemnt << endl;
+				}
+				else{
+					cout << "didnt found element at index " << index << endl;
+				}
 			}
 				break;
 			case COUNT:
 				cout << "container elements count is: " << container.elementAmount() << endl;
 				break;
 			case PRINT:
-
+			{
+				cout << "printing container content: " << endl;
+				int index = 0;
+				T * element = container[index];
+				while (element != 0){
+					cout << "index: " << index << " value: " << *element << endl;
+					++index;
+					element = container[index];
+				}
+			}
 				break;
 			case IS_EMPTY:
 				cout << "check is empty result:" << container.isEmpty() << endl;
