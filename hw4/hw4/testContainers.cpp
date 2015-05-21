@@ -19,6 +19,7 @@ typedef enum
 	PREPENR,
 	IS_EMPTY,
 	GET_FIRST_ELEMENT,
+	GET_LAST_ELEMENT,
 	EXIT
 } Options;
 //
@@ -34,6 +35,7 @@ const string optionsName[] = { "Insert",
 "Prepend",
 "is Empty?",
 "Get first element",
+"Get last element",
 "exit" };
 
 ////-------------------------------------------------------------------
@@ -103,10 +105,12 @@ int runner(tContainer_t<T, Container>& container){
 				cout << "check is empty result:" << container.isEmpty() << endl;
 				break;
 			case GET_FIRST_ELEMENT:
+			case GET_LAST_ELEMENT:
 			{
 				try{
-					T firstElement = container.getFirstElement();
-					cout << "container first element is " << firstElement << endl;
+					T element = (command == GET_FIRST_ELEMENT) ? container.getFirstElement() : container.getLastElement();
+					string position = (command == GET_FIRST_ELEMENT) ? "first" : "last";
+					cout << "container " << position << " element is " << element << endl;
 				}
 				catch (tEmptyException& ex){
 					cout << "[ERROR] details: " << ex.what() << endl;

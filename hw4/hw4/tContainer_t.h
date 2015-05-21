@@ -3,6 +3,12 @@
 template<typename T, template <typename, typename> class Container>
 class tContainer_t
 {
+	typedef enum {
+		First,
+		Last
+	}Position;
+
+
 	public:
 	tContainer_t() :elementsCounter(0){
 		;
@@ -36,22 +42,39 @@ class tContainer_t
 	}
 
 	T getFirstElement() const {
-		typename Container<T*, std::allocator<T*>>::const_iterator itr = container.begin();
-		if (itr != container.end()){
-			T * firstElement = *itr;
-			return *firstElement;
-		}
-		throw tEmptyException();
+		return getElement(Position::First);
 	}
+
+	T getLastElement() const {
+		return getElement(Position::Last);
+	}
+
 
 	~tContainer_t(){
 		;
 	}
 
 	private:
+	
+	
+	T getElement(Position pos) const{
+		if (isEmpty()){
+			throw tEmptyException();
+		}
+		else{
+			//typename Container<T*, std::allocator<T*>>::const_iterator itr = (pos == Position::First) ? container.begin() : container.end();
+			T * element = (pos == Position::First) ? container.front() : container.back();
+			if (element != 0){
+				return *element;
+			}
+		}
+	}
+	
 	tContainer_t(const tContainer_t& obj) { ; }
 	
 	Container<T*, std::allocator<T*>> container;
 	int elementsCounter;
+
+
 };
 
