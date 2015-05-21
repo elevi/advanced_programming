@@ -20,6 +20,7 @@ typedef enum
 	IS_EMPTY,
 	GET_FIRST_ELEMENT,
 	GET_LAST_ELEMENT,
+	FIND_ELEMENT_BY_VALUE,
 	EXIT
 } Options;
 //
@@ -36,6 +37,7 @@ const string optionsName[] = { "Insert",
 "is Empty?",
 "Get first element",
 "Get last element",
+"Find By Value",
 "exit" };
 
 ////-------------------------------------------------------------------
@@ -117,7 +119,21 @@ int runner(tContainer_t<T, Container>& container){
 					break;
 				}
 			}
-			break;
+				break;
+			case FIND_ELEMENT_BY_VALUE:
+			{
+				cout << "please insert element value to find" << endl;
+				T element;
+				cin >> element;
+				T * pointerToElementInContainer = container.findElementByValue(element);
+				if (pointerToElementInContainer == 0){
+					cout << "element not found" << endl;
+				}
+				else{
+					cout << "element value is: " << *pointerToElementInContainer << endl;
+				}
+			}
+				break;
 			case EXIT:
 				cont = false;
 				break;

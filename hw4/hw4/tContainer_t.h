@@ -1,5 +1,9 @@
 
 #include "t_Exceptions.h"
+#include <algorithm>
+
+using namespace std;
+
 template<typename T, template <typename, typename> class Container>
 class tContainer_t
 {
@@ -7,6 +11,17 @@ class tContainer_t
 		First,
 		Last
 	}Position;
+
+	class is_Equal{
+		public:
+		is_Equal(T value) :val(value){}
+		~is_Equal(){}
+		bool operator()(T * value) const {
+			return *value == val;
+		}
+		private:
+		T val;
+	};
 
 
 	public:
@@ -48,7 +63,17 @@ class tContainer_t
 	T getLastElement() const {
 		return getElement(Position::Last);
 	}
-
+	typedef typename Container<T*, std::allocator<T*>>::const_iterator Iter;
+	T * findElementByValue(const T& value) const{
+		
+		Iter result = container.begin();
+		Iter end = container.end();
+		result = find_if(result, end, is_Equal(value));
+		if (result != container.end()){
+			return *result;
+		}
+		return 0;
+	}
 
 	~tContainer_t(){
 		;
@@ -62,7 +87,6 @@ class tContainer_t
 			throw tEmptyException();
 		}
 		else{
-			//typename Container<T*, std::allocator<T*>>::const_iterator itr = (pos == Position::First) ? container.begin() : container.end();
 			T * element = (pos == Position::First) ? container.front() : container.back();
 			if (element != 0){
 				return *element;
