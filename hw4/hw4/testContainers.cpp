@@ -12,6 +12,8 @@ typedef enum
 	INSERT,
 	REMOVE,
 	REMOVE_ALL,
+	DELETE,
+	DELETE_ALL,
 	FIND,
 	COUNT,
 	PRINT,
@@ -29,6 +31,8 @@ typedef enum
 const string optionsName[] = { "Insert",
 "Remove",
 "Remove All",
+"Delete",
+"Delete All",
 "Find",
 "Count",
 "Print",
@@ -89,7 +93,6 @@ int runner(tContainer_t<T, Container>& container){
 				cin >> elementForRemoval;
 				try{
 					T* removedElement = container.removeElementFromContainer(elementForRemoval);
-					cout << "removed element value " << *removedElement << endl;
 				}
 				catch (tElementDoesNotExistException& ex){
 					cout << "[ERROR] failed to removed element value: " << elementForRemoval << " details: " << ex.what() << endl;
@@ -104,6 +107,21 @@ int runner(tContainer_t<T, Container>& container){
 				cout << "total elements removed from container: " << totoalRemoved << endl;
 				cout << "current container size: " << container.elementAmount() << endl;
 			}
+				break;
+			case DELETE:
+			{
+				cout << "please insert a value for deletion" << endl;
+				T elementForDeletion;
+				cin >> elementForDeletion;
+				try{
+					T * deletedElement = container.deleteElementFromContainer(elementForDeletion);
+				}
+				catch (tElementDoesNotExistException& ex){
+					cout << "[ERROR] failed to delete element value: " << elementForDeletion << " details: " << ex.what() << endl;
+				}
+			}
+				break;
+			case DELETE_ALL:
 				break;
 			case FIND:
 

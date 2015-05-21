@@ -12,6 +12,11 @@ class tContainer_t
 		Last
 	}Position;
 
+	typedef enum {
+		Remove,
+		Delete
+	}EliminateElement;
+
 	class is_Equal{
 		public:
 		is_Equal(T value) :val(value){}
@@ -72,15 +77,16 @@ class tContainer_t
 		return 0;
 	}
 
+
+
 	T* removeElementFromContainer(const T& value){
-		Iter itr = iteratorAtElement(value);
-		if (itr != container.end()){
-			T* output = *itr;
-			container.erase(itr);
-			return output;
-		}
-		throw tElementDoesNotExistException();
+		return eliminateElementFromContainer(value, EliminateElement::Remove);
 	}
+
+	T* deleteElementFromContainer(const T& value){
+		return eliminateElementFromContainer(value, EliminateElement::Delete);
+	}
+	
 
 	int removeAllElementsFromContainer(){
 		Iter itr = container.begin();
@@ -118,6 +124,21 @@ class tContainer_t
 		Iter result = container.begin();
 		Iter end = container.end();
 		return result = find_if(result, end, is_Equal(value));
+	}
+
+	T* eliminateElementFromContainer(const T& value, EliminateElement type){
+		Iter itr = iteratorAtElement(value);
+		if (itr != container.end()){
+			T* output = *itr;
+			container.erase(itr);
+			cout << "elemet with value: " << value << " was removed from container" << endl;
+			if (type == EliminateElement::Delete){
+				delete output;
+				cout << "element with value: " << value << " was deleted" << endl;
+			}
+			return output;
+		}
+		throw tElementDoesNotExistException();
 	}
 	
 	tContainer_t(const tContainer_t& obj) { ; }
