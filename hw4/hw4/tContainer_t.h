@@ -5,7 +5,12 @@
 
 using namespace std;
 
+#ifdef TEMPLATE_TEMPLATE
 template<typename T, template <typename, typename> class Container>
+#else
+template<class T, class Container>
+#endif
+
 class tContainer_t
 {
 	typedef enum {
@@ -56,7 +61,12 @@ class tContainer_t
 	T getLastElement() const {
 		return getElement(Position::Last);
 	}
+	//TODO elevi  check if need to be modified because of the template template change
+#ifdef TEMPLATE_TEMPLATE
 	typedef typename Container<T*, std::allocator<T*>>::const_iterator Iter;
+#else 
+	typedef typename Container::const_iterator Iter;
+#endif
 	T * findElementByValue(const T& value) const{
 		Iter result = iteratorAtElement(value);
 		if (result != container.end()){
@@ -172,6 +182,11 @@ class tContainer_t
 		return totalElementRemoved;
 	}
 
+#ifdef TEMPLATE_TEMPLATE
 	Container<T*, std::allocator<T*>> container;
+#else
+	Container container;
+#endif
+	
 };
 
