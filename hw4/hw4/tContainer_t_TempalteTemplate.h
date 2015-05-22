@@ -5,8 +5,8 @@
 
 using namespace std;
 
-template<class T, class Container>
-class tContainer_t
+template<typename T, template <typename, typename> class Container>
+class tContainer_t_TempalteTemplate
 {
 	typedef enum {
 		First,
@@ -29,11 +29,10 @@ class tContainer_t
 		T val;
 	};
 
-
 	public:
-	tContainer_t(){}
+	tContainer_t_TempalteTemplate(){}
 
-	~tContainer_t(){
+	~tContainer_t_TempalteTemplate(){
 		;
 	}
 
@@ -57,7 +56,8 @@ class tContainer_t
 		return getElement(Position::Last);
 	}
 
-	typedef typename Container::const_iterator Iter;
+	typedef typename Container<T*, std::allocator<T*>>::const_iterator Iter;
+
 	T * findElementByValue(const T& value) const{
 		Iter result = iteratorAtElement(value);
 		if (result != container.end()){
@@ -111,14 +111,12 @@ class tContainer_t
 			return output;
 		}
 	}
-
-
-
+	
 	private:
 
-	tContainer_t(const tContainer_t& obj) { ; }
+	tContainer_t_TempalteTemplate(const tContainer_t_TempalteTemplate& obj) { ; }
 
-	tContainer_t& operator=(tContainer_t& obj){
+	tContainer_t_TempalteTemplate& operator=(tContainer_t_TempalteTemplate& obj){
 		*this = obj;
 	}
 
@@ -173,7 +171,7 @@ class tContainer_t
 		return totalElementRemoved;
 	}
 
-	Container container;
-	
+	Container<T*, std::allocator<T*>> container;
+
 };
 

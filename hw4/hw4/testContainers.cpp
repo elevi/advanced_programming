@@ -4,8 +4,9 @@
 #include <list>
 #include <vector>
 #include "tContainer_t.h"
+#include "tContainer_t_TempalteTemplate.h"
 #include "t_Exceptions.h"
-
+//#define TEMPALTE_TEMPLATE
 using namespace std;
 typedef enum
 {
@@ -60,8 +61,14 @@ void PrintTypeOptions(){
 	cout << "(0) int (1) double " << endl;
 }
 
+#ifdef TEMPALTE_TEMPLATE
 template<typename T, template <typename, typename> class Container>
+int runner(tContainer_t_TempalteTemplate<T, Container>& container){
+#else 
+template<class T, class Container>
 int runner(tContainer_t<T, Container>& container){
+#endif
+
 	unsigned int command;
 	bool cont = true;
 	while (cont) {
@@ -94,7 +101,7 @@ int runner(tContainer_t<T, Container>& container){
 					cout << "[ERROR] failed to removed element value: " << elementForRemoval << " details: " << ex.what() << endl;
 				}
 			}
-				break;
+			break;
 			case REMOVE_ALL:
 			case DELETE_ALL:
 			{
@@ -106,7 +113,7 @@ int runner(tContainer_t<T, Container>& container){
 				cout << "total elements " << action << " from container: " << totoalRemoved << endl;
 				cout << "current container size: " << container.elementAmount() << endl;
 			}
-				break;
+			break;
 			case DELETE:
 			{
 				cout << "please insert a value for deletion" << endl;
@@ -119,7 +126,7 @@ int runner(tContainer_t<T, Container>& container){
 					cout << "[ERROR] failed to delete element value: " << elementForDeletion << " details: " << ex.what() << endl;
 				}
 			}
-				break;
+			break;
 			case FIND:
 			{
 				cout << "please insert index" << endl;
@@ -133,7 +140,7 @@ int runner(tContainer_t<T, Container>& container){
 					cout << "didnt found element at index " << index << endl;
 				}
 			}
-				break;
+			break;
 			case COUNT:
 				cout << "container elements count is: " << container.elementAmount() << endl;
 				break;
@@ -148,7 +155,7 @@ int runner(tContainer_t<T, Container>& container){
 					element = container[index];
 				}
 			}
-				break;
+			break;
 			case IS_EMPTY:
 				cout << "check is empty result:" << container.isEmpty() << endl;
 				break;
@@ -165,7 +172,7 @@ int runner(tContainer_t<T, Container>& container){
 					break;
 				}
 			}
-				break;
+			break;
 			case FIND_ELEMENT_BY_VALUE:
 			{
 				cout << "please insert element value to find" << endl;
@@ -179,9 +186,12 @@ int runner(tContainer_t<T, Container>& container){
 					cout << "element value is: " << *pointerToElementInContainer << endl;
 				}
 			}
-				break;
+			break;
 			case EXIT:
+			{
 				cont = false;
+				container.deleteAllElementsFromContainer();
+			}
 				break;
 			default:
 				cout << "Unknown command" << endl;
@@ -192,11 +202,21 @@ int runner(tContainer_t<T, Container>& container){
 	return 0;
 }
 
+void printSettingsOptions(){
+	cout << "[IMPORTANT NOTE] please configure your settings:" << endl;
+	cout << "The default settings are: <T, <containerType><T*>>" << endl;
+	cout << "where <containerType> can be list or vector" << endl;
+	cout << "for template tempalte please write #define TEMPLATE_TEMPLATE in any header or cpp project's files" << endl;
+	cout << "please press any number in order to continue" << endl;
+	int i;
+	cin >> i;
+	cout << endl;
+	cout << endl;
+}
 int main()
 {
+	printSettingsOptions();
 	unsigned int VectorOrList;
-
-
 	cout << "please choose vector(0) or list(1)" << endl;
 	cin >> VectorOrList;
 	while (VectorOrList != 0 && VectorOrList != 1)
@@ -218,23 +238,40 @@ int main()
 
 	if (VectorOrList == 0){
 		if (type == 0){
-			tContainer_t<int, vector> container;
+#ifdef TEMPALTE_TEMPLATE
+			tContainer_t_TempalteTemplate<int, vector> container;
+#else
+			tContainer_t<int, vector<int*>> container;
+#endif
 			return runner(container);
 		}
 		else if (type == 1){
-			tContainer_t<double, vector> container;
+#ifdef TEMPALTE_TEMPLATE
+			tContainer_t_TempalteTemplate<double, vector> container;
+#else
+			tContainer_t<double, vector<double*>> container;
+#endif
 			return runner(container);
 		}
 	}
 	else if (VectorOrList == 1){
 		if (type == 0){
-			tContainer_t<int, list> container;
+#ifdef TEMPALTE_TEMPLATE
+			tContainer_t_TempalteTemplate<int, list> container;
+#else
+			tContainer_t<int, list<int*>> container;
+#endif
 			return runner(container);
 		}
 		else if (type == 1){
-			tContainer_t<double, list> container;
+#ifdef TEMPALTE_TEMPLATE
+			tContainer_t_TempalteTemplate<double, list> container;
+#else
+			tContainer_t<double, list<double*>> container;
+#endif
 			return runner(container);
 		}
+
 	}
 	else {
 		cout << "[ERROR] failed to initialize container" << endl;
