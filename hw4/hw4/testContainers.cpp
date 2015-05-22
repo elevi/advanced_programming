@@ -6,7 +6,11 @@
 #include "tContainer_t.h"
 #include "tContainer_t_TempalteTemplate.h"
 #include "t_Exceptions.h"
+<<<<<<< HEAD
 //#define TEMPALTE_TEMPLATE
+=======
+//#define TEMPLATE_TEMPLATE
+>>>>>>> origin/master
 using namespace std;
 typedef enum
 {
@@ -61,6 +65,7 @@ void PrintTypeOptions(){
 	cout << "(0) int (1) double " << endl;
 }
 
+<<<<<<< HEAD
 #ifdef TEMPALTE_TEMPLATE
 template<typename T, template <typename, typename> class Container>
 int runner(tContainer_t_TempalteTemplate<T, Container>& container){
@@ -68,6 +73,14 @@ int runner(tContainer_t_TempalteTemplate<T, Container>& container){
 template<class T, class Container>
 int runner(tContainer_t<T, Container>& container){
 #endif
+=======
+#ifdef TEMPLATE_TEMPLATE
+	template<typename T, template <typename, typename> class Container>
+#else 
+	template<class T, class Container>
+#endif
+int runner(tContainer_t<T, Container>& container){
+>>>>>>> origin/master
 
 	unsigned int command;
 	bool cont = true;
@@ -213,6 +226,11 @@ void printSettingsOptions(){
 	cout << endl;
 	cout << endl;
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/master
 int main()
 {
 	printSettingsOptions();
@@ -238,6 +256,7 @@ int main()
 
 	if (VectorOrList == 0){
 		if (type == 0){
+<<<<<<< HEAD
 #ifdef TEMPALTE_TEMPLATE
 			tContainer_t_TempalteTemplate<int, vector> container;
 #else
@@ -251,11 +270,27 @@ int main()
 #else
 			tContainer_t<double, vector<double*>> container;
 #endif
+=======
+			#ifdef TEMPLATE_TEMPLATE
+				tContainer_t<int, vector> container;
+			#else
+				tContainer_t<int, vector<int*>> container;
+			#endif
+			return runner(container);
+		}
+		else if (type == 1){
+			#ifdef TEMPLATE_TEMPLATE
+				tContainer_t<double, vector> container;
+			#else
+				tContainer_t<double, vector<double*>> container;
+			#endif
+>>>>>>> origin/master
 			return runner(container);
 		}
 	}
 	else if (VectorOrList == 1){
 		if (type == 0){
+<<<<<<< HEAD
 #ifdef TEMPALTE_TEMPLATE
 			tContainer_t_TempalteTemplate<int, list> container;
 #else
@@ -272,6 +307,24 @@ int main()
 			return runner(container);
 		}
 
+=======
+			#ifdef TEMPLATE_TEMPLATE
+				tContainer_t<int, list> container;
+			#else
+				tContainer_t<int, list<int*>> container;
+			#endif
+				return runner(container);
+		}
+		else if (type == 1){
+			#ifdef TEMPLATE_TEMPLATE
+				tContainer_t<double, list> container;
+			#else
+				tContainer_t<double, list<double*>> container;
+			#endif
+				return runner(container);
+		}
+		
+>>>>>>> origin/master
 	}
 	else {
 		cout << "[ERROR] failed to initialize container" << endl;
